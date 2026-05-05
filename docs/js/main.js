@@ -9,9 +9,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
-    mobileMenuBtn.addEventListener('click', function () {
-        navLinks.classList.toggle('active');
-    });
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Initialize enhanced features
+    if (typeof initEnhancedScrolling === 'function') initEnhancedScrolling();
+    if (typeof initEnhancedScrollSpy === 'function') initEnhancedScrollSpy();
 
     // Populate destinations
     populateDestinations();
@@ -793,18 +799,5 @@ function initEnhancedScrollSpy() {
     updateScrollSpy();
 }
 
-// Initialize enhanced scrolling
-document.addEventListener('DOMContentLoaded', function () {
-    initEnhancedScrolling();
-    initEnhancedScrollSpy();
 
-    // Your existing initialization code...
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    mobileMenuBtn.addEventListener('click', function () {
-        navLinks.classList.toggle('active');
-    });
-
-    // ... rest of your existing code
-});
+// Enhanced scrolling initialized in main DOMContentLoaded
