@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
                     ? 'http://localhost:3000' 
-                    : 'https://jharkhand-tourism-backend.onrender.com'; // Replace with your actual backend URL after deployment
+                    : 'https://jharkhand-tourism-backend-h5sq.onrender.com'; 
 
                 const response = await fetch(`${baseUrl}/api/tourists`, {
                     method: 'POST',
