@@ -12,7 +12,9 @@ function handleChatInput(event) {
 async function sendChatMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    const API_URL = 'http://localhost:3000/api'; // Using the same backend URL pattern
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api'
+        : 'https://jharkhand-tourism-backend-h5sq.onrender.com/api';
     
     if (message === '') return;
     
