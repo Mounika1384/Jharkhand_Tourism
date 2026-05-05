@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initQuiz();
 
     // Initialize booking wizard
-    initBookingWizard();
+    initBookingForm();
 
     // Set minimum date for travel date input
     const travelDateInput = document.getElementById('travelDate');

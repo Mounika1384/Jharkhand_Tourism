@@ -1,7 +1,9 @@
 // Booking Form Functions for Index Page
 let bookingCurrentStep = 1;
 let bookingTravelersCount = 2;
-const API_URL = 'http://localhost:3000/api';
+const BOOKING_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000/api'
+    : 'https://jharkhand-tourism-backend-h5sq.onrender.com/api';
 
 // Initialize booking form
 function initBookingForm() {
@@ -264,7 +266,7 @@ async function submitBookingForm() {
     
     try {
         // Try to submit to backend API
-        const response = await fetch(`${API_URL}/bookings`, {
+        const response = await fetch(`${BOOKING_API_URL}/bookings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -373,7 +375,7 @@ async function submitContactForm(event) {
     
     try {
         // Try to save to backend (you could create a /api/contacts endpoint)
-        const response = await fetch(`${API_URL}/bookings`, {
+        const response = await fetch(`${BOOKING_API_URL}/bookings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

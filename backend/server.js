@@ -214,7 +214,11 @@ app.post('/api/chat', async (req, res) => {
         res.json({ success: true, reply });
     } catch (error) {
         console.error('Chat API error:', error);
-        res.status(500).json({ success: false, error: 'Internal server error' });
+        res.status(500).json({ 
+            success: false, 
+            error: 'Internal server error',
+            details: error.message 
+        });
     }
 });
 
