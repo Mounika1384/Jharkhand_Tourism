@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
     // Initialize search UI if elements exist
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {

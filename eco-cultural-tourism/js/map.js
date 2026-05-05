@@ -1,7 +1,15 @@
 // Map functions
 function initMap() {
     // Initialize map centered on Jharkhand
-    map = L.map('map').setView([23.6102, 85.2799], 8);
+    if (typeof L === 'undefined') {
+        console.error('Leaflet library not loaded. Map cannot be initialized.');
+        const mapContainer = document.getElementById('map');
+        if (mapContainer) {
+            mapContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Unable to load map. Please check your internet connection.</div>';
+        }
+        return;
+    }
+    map = L.map('map').setView([23.3441, 85.3091], 8);
     
     // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
