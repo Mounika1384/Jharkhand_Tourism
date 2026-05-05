@@ -21,18 +21,10 @@
             </div>
             
             <div class="nav-controls">
-                <!-- Language Toggle -->
-                <div class="lang-selector">
-                    <select id="langToggle" onchange="changeLanguage(this.value)">
-                        <option value="en">English</option>
-                        <option value="hi">हिन्दी</option>
-                        <option value="bn">বাংলা</option>
-                    </select>
-                </div>
 
                 <!-- Search bar -->
                 <div class="search-container">
-                    <input type="text" id="searchInput" data-translate="search_placeholder" placeholder="Search destinations...">
+                    <input type="text" id="searchInput" placeholder="Search destinations...">
                     <button id="searchButton"><i class="fas fa-search"></i></button>
                     <div class="search-results" id="searchResults"></div>
                 </div>
@@ -121,8 +113,8 @@
     <section class="section" id="festivals">
         <div class="container">
             <div class="section-title">
-                <h2 data-translate="festival_title">Cultural Festival Calendar</h2>
-                <p data-translate="festival_subtitle">Don't miss out on Jharkhand's vibrant celebrations</p>
+                <h2>Cultural Festival Calendar</h2>
+                <p>Don't miss out on Jharkhand's vibrant celebrations</p>
             </div>
             
             <!-- Major Festival Countdown -->
@@ -697,7 +689,6 @@
     <script src="js/booking-form.js"></script>
     <script src="js/weather.js"></script>
     <script src="js/chatbot.js"></script>
-    <script src="js/translations.js"></script>
     <script src="js/festivals.js"></script>
     <script src="js/reviews.js"></script>
 </body>
