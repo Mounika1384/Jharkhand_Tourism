@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jharkhand Eco & Cultural Tourism</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/images.jpeg" alt="Jharkhand Tourism Logo" style="height: 40px;">
+                <span class="logo-text">Jharkhand Tourism</span>
+            </div>
+            
+            <div class="nav-controls">
+                <!-- Language Toggle -->
+                <div class="lang-selector">
+                    <select id="langToggle" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="bn">বাংলা</option>
+                    </select>
+                </div>
+
+                <!-- Search bar -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" data-translate="search_placeholder" placeholder="Search destinations...">
+                    <button id="searchButton"><i class="fas fa-search"></i></button>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#map">Interactive Map</a></li>
+                <li><a href="#culture">Local Culture</a></li>
+                <li><a href="#booking">Booking</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#tourist">Tourist Features</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <!-- Scrolling Background Sections -->
+    <section id="home" class="background-section">
+        <video autoplay muted loop class="background-media">
+            <source src="images\video.mp4" type="video/mp4">
+        </video>
+        <div class="background-overlay"></div>
+        <div class="section-content">
+            <h1>Welcome to Jharkhand</h1>
+            <p>Discover the land of forests, waterfalls, and rich tribal heritage</p>
+            <a href="#destinations" class="btn">Explore Destinations</a>
+        </div>
+    </section>
+
+    <!-- Experience in Motion Section -->
+    <section class="section" id="videos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience in Motion</h2>
+                <p>Glimpses of Jharkhand's vibrant culture and landscapes</p>
+            </div>
+            <div class="video-grid">
+                <div class="video-card glass-panel" onclick="window.open('https://www.youtube.com/results?search_query=Hundru+Falls+Jharkhand', '_blank')">
+                    <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&auto=format&fit=crop" alt="Video 1">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>The Majestic Hundru Falls</h3>
+                    </div>
+                </div>
+                <div class="video-card glass-panel" onclick="window.open('https://www.youtube.com/results?search_query=Baidyanath+Dham+Deoghar+Jharkhand', '_blank')">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop" alt="Video 2">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>Baidyanath Dham Journey</h3>
+                    </div>
+                </div>
+                <div class="video-card glass-panel" onclick="window.open('https://www.youtube.com/results?search_query=Betla+National+Park+Safari+Jharkhand', '_blank')">
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&auto=format&fit=crop" alt="Video 3">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>Betla National Park Safari</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather Section -->
+    <section class="section" id="weather">
+        <div class="container">
+            <div class="section-title">
+                <h2>Live Destination Weather</h2>
+                <p>Check the current weather conditions at Jharkhand's top spots</p>
+            </div>
+            <div class="weather-grid" id="weatherGrid">
+                <!-- Weather cards will be populated by JavaScript -->
+                <div class="weather-card glass-panel loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading weather data...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Festival Calendar Section -->
+    <section class="section" id="festivals">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-translate="festival_title">Cultural Festival Calendar</h2>
+                <p data-translate="festival_subtitle">Don't miss out on Jharkhand's vibrant celebrations</p>
+            </div>
+            
+            <!-- Major Festival Countdown -->
+            <div class="countdown-panel glass-panel">
+                <div class="countdown-info">
+                    <h3 id="nextFestivalName">Next Major Festival: Sarhul</h3>
+                    <p>Celebrating nature and the new year</p>
+                </div>
+                <div class="countdown-timer" id="festivalCountdown">
+                    <div class="timer-unit"><span id="days">00</span><small>Days</small></div>
+                    <div class="timer-unit"><span id="hours">00</span><small>Hrs</small></div>
+                    <div class="timer-unit"><span id="minutes">00</span><small>Min</small></div>
+                </div>
+            </div>
+
+            <div class="festivals-grid" id="festivalsGrid">
+                <!-- Festival cards will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="section" id="destinations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Eco-Tourism Destinations</h2>
+                <p>Explore the breathtaking natural beauty and rich biodiversity of Jharkhand</p>
+            </div>
+            <div class="destinations-grid">
+                <!-- Destination cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Interactive Map Section -->
+    <section class="section" id="map">
+        <div class="container">
+            <div class="section-title">
+                <h2>Interactive Map</h2>
+                <p>Find your way around Jharkhand's attractions</p>
+            </div>
+            <div id="map"></div>
+        </div>
+    </section>
+
+    <!-- Local Culture Section -->
+    <section class="section" id="culture">
+        <div class="container">
+            <div class="section-title">
+                <h2>Local Tribal Culture</h2>
+                <p>Discover the rich heritage of Jharkhand's indigenous communities</p>
+            </div>
+            <div class="culture-container">
+                <!-- Culture cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know before your trip</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item glass-panel" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">What is the best time to visit Jharkhand? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">The ideal time to visit is from October to March when the weather is pleasant and comfortable for sightseeing.</div>
+                </div>
+                <div class="faq-item glass-panel" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">Are the wildlife sanctuaries safe? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Yes, they are completely safe. Always follow the guidelines provided by your tour guide or forest officials.</div>
+                </div>
+                <div class="faq-item glass-panel" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">How can I book a guided tour? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">You can use the 'Booking' wizard on our platform to request a personalized tour plan, and our experts will arrange it for you.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Booking Section -->
+<section class="section" id="booking">
+    <div class="container">
+        <div class="section-title">
+            <h2>Plan Your Jharkhand Adventure</h2>
+            <p>Get personalized travel recommendations and plan your perfect trip</p>
+        </div>
+        
+        <div class="booking-container">
+            <!-- Trip Planning Wizard -->
+            <div class="planning-wizard">
+                <div class="wizard-steps">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Personal Info</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Dates</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Preferences</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <span class="step-number">4</span>
+                        <span class="step-label">Summary</span>
+                    </div>
+                </div>
+
+                <div class="wizard-content">
+                    <!-- Step 1: Personal Information -->
+                    <div class="wizard-step active" id="step1">
+                        <h3>Your Personal Information</h3>
+                        <p>Please provide your details so we can contact you</p>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="bookingName">Full Name *</label>
+                                <input type="text" id="bookingName" name="name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingEmail">Email Address *</label>
+                                <input type="email" id="bookingEmail" name="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingPhone">Phone Number *</label>
+                                <input type="tel" id="bookingPhone" name="phone" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingCountry">Country *</label>
+                                <input type="text" id="bookingCountry" name="country" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="bookingAddress">Address</label>
+                                <textarea id="bookingAddress" name="address" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="wizard-actions">
+                            <button class="btn btn-next" onclick="nextBookingStep(2)">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Date Selection -->
+                    <div class="wizard-step" id="step2">
+                        <h3>When do you want to travel?</h3>
+                        <p>Select your travel dates and duration</p>
+                        
+                        <div class="date-selection">
+                            <div class="form-group">
+                                <label for="bookingTravelDate">Travel Date *</label>
+                                <input type="date" id="bookingTravelDate" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingDuration">Trip Duration *</label>
+                                <select id="bookingDuration" class="form-control" required>
+                                    <option value="">Select Duration</option>
+                                    <option value="1">1 Day</option>
+                                    <option value="2">2 Days</option>
+                                    <option value="3">3 Days</option>
+                                    <option value="5">5 Days</option>
+                                    <option value="7">7 Days</option>
+                                </select>
+                            </div>
+                            
+                            <div class="travelers-selection">
+                                <label>Number of Travelers *</label>
+                                <div class="travelers-control">
+                                    <button type="button" class="btn-counter" onclick="changeBookingTravelers(-1)">-</button>
+                                    <span id="bookingTravelersCount">2</span>
+                                    <button type="button" class="btn-counter" onclick="changeBookingTravelers(1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="wizard-actions">
+                            <button class="btn btn-secondary" onclick="nextBookingStep(1)">← Back</button>
+                            <button class="btn btn-next" onclick="nextBookingStep(3)">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Preferences -->
+                    <div class="wizard-step" id="step3">
+                        <h3>What are your preferences?</h3>
+                        <p>Help us customize your perfect trip</p>
+                        
+                        <div class="preferences-selection">
+                            <div class="preference-category">
+                                <h4>Accommodation Type *</h4>
+                                <div class="preference-options">
+                                    <label class="preference-option">
+                                        <input type="radio" name="bookingAccommodation" value="budget" required>
+                                        <span class="option-card">
+                                            <i class="fas fa-home"></i>
+                                            <span>Budget</span>
+                                            <small>Hostels, Guesthouses</small>
+                                        </span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="radio" name="bookingAccommodation" value="midrange">
+                                        <span class="option-card">
+                                            <i class="fas fa-hotel"></i>
+                                            <span>Mid-range</span>
+                                            <small>3-Star Hotels</small>
+                                        </span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="radio" name="bookingAccommodation" value="luxury">
+                                        <span class="option-card">
+                                            <i class="fas fa-building"></i>
+                                            <span>Luxury</span>
+                                            <small>5-Star Resorts</small>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-category">
+                                <h4>Travel Style (Select all that apply)</h4>
+                                <div class="preference-options">
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="bookingTravelStyle" value="adventure">
+                                        <span class="option-card">
+                                            <i class="fas fa-hiking"></i>
+                                            <span>Adventure</span>
+                                        </span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="bookingTravelStyle" value="cultural">
+                                        <span class="option-card">
+                                            <i class="fas fa-landmark"></i>
+                                            <span>Cultural</span>
+                                        </span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="bookingTravelStyle" value="relaxation">
+                                        <span class="option-card">
+                                            <i class="fas fa-spa"></i>
+                                            <span>Relaxation</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="wizard-actions">
+                            <button class="btn btn-secondary" onclick="nextBookingStep(2)">← Back</button>
+                            <button class="btn btn-next" onclick="nextBookingStep(4)">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Summary -->
+                    <div class="wizard-step" id="step4">
+                        <h3>Your Trip Summary</h3>
+                        <p>Review your selections and get your travel plan</p>
+                        
+                        <div class="trip-summary">
+                            <div class="summary-card">
+                                <h4>Trip Details</h4>
+                                <div id="bookingSummaryContent">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div class="estimated-cost">
+                                <h4>Estimated Cost</h4>
+                                <div class="cost-breakdown">
+                                    <div class="cost-item">
+                                        <span>Accommodation</span>
+                                        <span id="bookingCostAccommodation">₹6,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Transportation</span>
+                                        <span id="bookingCostTransport">₹3,500</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Activities</span>
+                                        <span id="bookingCostActivities">₹2,000</span>
+                                    </div>
+                                    <div class="cost-item total">
+                                        <span>Total Estimated Cost</span>
+                                        <span id="bookingCostTotal">₹11,500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="terms-agreement">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="bookingAgreeTerms" required>
+                                <span>I agree to the <a href="#" target="_blank">Terms & Conditions</a> and <a href="#" target="_blank">Privacy Policy</a></span>
+                            </label>
+                        </div>
+                        
+                        <div class="wizard-actions">
+                            <button class="btn btn-secondary" onclick="nextBookingStep(3)">← Back</button>
+                            <button class="btn btn-primary" onclick="submitBookingForm()">
+                                <i class="fas fa-paper-plane"></i> Submit Booking Request
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Contact Form -->
+            <div class="quick-contact">
+                <h3>Need Help Planning?</h3>
+                <p>Our travel experts will contact you with personalized recommendations</p>
+                
+                <form class="contact-form" id="contactForm" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <input type="text" id="contactName" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="contactEmail" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="contactPhone" class="form-control" placeholder="Your Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="contactMessage" class="form-control" placeholder="Tell us about your travel preferences..." rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Get Free Consultation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+   
+<!-- Travel Plan Modal -->
+<div class="modal" id="travelPlanModal">
+    <div class="modal-content" style="max-width: 600px;">
+        <span class="close-modal" onclick="closeModal('travelPlanModal')">&times;</span>
+        <div class="travel-plan-result">
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <h2>Your Travel Plan is Ready!</h2>
+            <p>We've created a personalized itinerary for your Jharkhand adventure.</p>
+            
+            <div class="plan-download-options">
+                <button class="btn" onclick="downloadPDF()">
+                    <i class="fas fa-file-pdf"></i> Download PDF Itinerary
+                </button>
+                <button class="btn btn-secondary" onclick="sendEmail()">
+                    <i class="fas fa-envelope"></i> Send to Email
+                </button>
+            </div>
+            
+            <div class="expert-contact">
+                <p><strong>Want to customize this plan?</strong></p>
+                <p>Our travel expert will contact you within 24 hours to discuss your trip.</p>
+                <button class="btn" onclick="requestExpertCall()">
+                    <i class="fas fa-phone"></i> Request Expert Call
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Quiz Section -->
+    <section class="section" id="quiz">
+        <div class="container">
+            <div class="section-title">
+                <h2>Jharkhand Heritage Quiz</h2>
+                <p>Test your knowledge about Jharkhand's culture and nature</p>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div id="quizContent">
+                    <!-- Quiz content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourist Features Section -->
+    <section class="section tourist-features" id="tourist">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tourist Safety Features</h2>
+                <p>Your safety is our priority</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>Digital Tourist ID</h3>
+                    <p>Create your digital identity for a safer travel experience</p>
+                    <button class="btn" style="margin-top: 1rem;" onclick="showTouristRegistration()">Register Now</button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Geo-Fencing Alerts</h3>
+                    <p>Get notified when entering restricted areas for your safety</p>
+                    <button class="btn" style="margin-top: 1rem;" onclick="showGeoFencingDemo()">View Demo</button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Incident History</h3>
+                    <p>Access information about past incidents in tourist areas</p>
+                    <button class="btn" style="margin-top: 1rem;" onclick="showIncidentHistory()">View History</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Wall Section -->
+    <section class="section" id="social-wall">
+        <div class="container">
+            <div class="section-title">
+                <h2>#JharkhandTourism</h2>
+                <p>Join the conversation on social media</p>
+            </div>
+            <div class="social-grid">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&auto=format&fit=crop" alt="Social 1" class="glass-panel">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&auto=format&fit=crop" alt="Social 2" class="glass-panel">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&auto=format&fit=crop" alt="Social 3" class="glass-panel">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&auto=format&fit=crop" alt="Social 4" class="glass-panel">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Jharkhand Tourism</h3>
+                    <p>Discover the unexplored beauty and rich cultural heritage of Jharkhand. Your gateway to authentic eco-tourism experiences.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#map">Interactive Map</a></li>
+                        <li><a href="#culture">Local Culture</a></li>
+                        <li><a href="#booking">Booking</a></li>
+                        <li><a href="#quiz">Heritage Quiz</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Tourism Department, Jharkhand</li>
+                        <li><i class="fas fa-phone"></i> +91 XXX XXX XXXX</li>
+                        <li><i class="fas fa-envelope"></i> info@jharkhandtourism.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Jharkhand Eco & Cultural Tourism Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modals -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <h2>Booking Submitted!</h2>
+            <p>Thank you for your booking request. We will contact you shortly to confirm your trip details.</p>
+            <button class="btn" onclick="closeModal('bookingModal')">Close</button>
+        </div>
+    </div>
+
+
+    <div class="modal" id="touristRegistrationModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('touristRegistrationModal')">&times;</span>
+            <h2>Tourist Registration</h2>
+            <p>Create your digital tourist ID for enhanced safety and personalized experiences.</p>
+            <form id="touristForm">
+                <div class="form-group">
+                    <label for="touristName">Full Name</label>
+                    <input type="text" id="touristName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="touristEmail">Email</label>
+                    <input type="email" id="touristEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="touristPhone">Phone</label>
+                    <input type="tel" id="touristPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="emergencyContact">Emergency Contact</label>
+                    <input type="tel" id="emergencyContact" class="form-control" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="geoFencingModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('geoFencingModal')">&times;</span>
+            <h2>Geo-Fencing Demo</h2>
+            <p>This map shows safe zones (green) and restricted areas (red) in popular tourist destinations.</p>
+            <div id="demoMap" style="height: 300px; margin: 1rem 0; border-radius: 8px;"></div>
+            <p>When entering a restricted area, you'll receive an alert with safety instructions.</p>
+            <button class="btn" onclick="simulateGeoFenceAlert()">Simulate Alert</button>
+        </div>
+    </div>
+
+    <div class="modal" id="incidentHistoryModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('incidentHistoryModal')">&times;</span>
+            <h2>Incident History</h2>
+            <p>Reported incidents in tourist areas (demo data):</p>
+            <div id="incidentList" style="margin: 1rem 0; max-height: 300px; overflow-y: auto;">
+                <!-- Incident list will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Travel Assistant Chatbot -->
+    <div id="chatbot-container">
+        <div id="chatbot-button" onclick="toggleChatbot()">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div id="chatbot-window" class="glass-panel">
+            <div id="chatbot-header">
+                <h3><i class="fas fa-robot"></i> JHT Assistant</h3>
+                <span id="close-chat" onclick="toggleChatbot()">&times;</span>
+            </div>
+            <div id="chatbot-messages">
+                <div class="message bot">
+                    Hello! I'm your Jharkhand Tourism assistant. How can I help you today?
+                </div>
+            </div>
+            <div id="chatbot-input-container">
+                <input type="text" id="chatbot-input" placeholder="Ask me about destinations, bookings..." onkeypress="handleChatInput(event)">
+                <button id="chatbot-send" onclick="sendChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/booking-form.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/festivals.js"></script>
+    <script src="js/reviews.js"></script>
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Jharkhand Tourism</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-mountain" style="color: var(--primary); font-size: 2rem;"></i>
+                    <span class="logo-text">Jharkhand Tourism</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#destinations">Destinations</a></li>
+                    <li><a href="index.html#map">Interactive Map</a></li>
+                    <li><a href="index.html#culture">Local Culture</a></li>
+                    <li><a href="booking.html" class="active">Booking</a></li>
+                    <li><a href="index.html#quiz">Quiz</a></li>
+                    <li><a href="index.html#tourist">Tourist Features</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Booking Section -->
+    <section class="section" id="booking">
+        <div class="container">
+            <div class="section-title">
+                <h2>Book Your Jharkhand Adventure</h2>
+                <p>Fill out the form below to book your customized tour package</p>
+            </div>
+            
+            <div class="booking-container">
+                <!-- Trip Planning Wizard -->
+                <div class="planning-wizard">
+                    <div class="wizard-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Personal Info</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Travel Details</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Preferences</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-label">Review & Book</span>
+                        </div>
+                    </div>
+
+                    <div class="wizard-content">
+                        <!-- Step 1: Personal Information -->
+                        <div class="wizard-step active" id="step1">
+                            <h3>Your Personal Information</h3>
+                            <p>Please provide your details so we can contact you</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <input type="text" id="country" name="country" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="address">Address</label>
+                                    <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="wizard-actions">
+                                <button class="btn btn-next" onclick="nextStep(2)">Next →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Travel Details -->
+                        <div class="wizard-step" id="step2">
+                            <h3>Your Travel Details</h3>
+                            <p>Tell us about your travel plans</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="tour-date">Tour Start Date *</label>
+                                    <input type="date" id="tour-date" name="tour-date" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="duration">Trip Duration *</label>
+                                    <select id="duration" name="duration" class="form-control" required>
+                                        <option value="">Select Duration</option>
+                                        <option value="1">1 Day</option>
+                                        <option value="2">2 Days</option>
+                                        <option value="3">3 Days</option>
+                                        <option value="5">5 Days</option>
+                                        <option value="7">7 Days</option>
+                                        <option value="10">10+ Days</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="travelers">Number of Travelers *</label>
+                                    <div class="travelers-control">
+                                        <button type="button" class="btn-counter" onclick="changeTravelers(-1)">-</button>
+                                        <span id="travelersCount">2</span>
+                                        <button type="button" class="btn-counter" onclick="changeTravelers(1)">+</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="tour-type">Tour Type *</label>
+                                    <select id="tour-type" name="tour-type" class="form-control" required>
+                                        <option value="">Select Tour Type</option>
+                                        <option value="eco-tourism">Eco Tourism</option>
+                                        <option value="cultural-tourism">Cultural Tourism</option>
+                                        <option value="adventure-tourism">Adventure Tourism</option>
+                                        <option value="pilgrimage">Pilgrimage</option>
+                                        <option value="wildlife">Wildlife Safari</option>
+                                        <option value="custom">Custom Package</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="destinations">Preferred Destinations</label>
+                                    <select id="destinations" name="destinations" class="form-control" multiple>
+                                        <option value="1">Ranchi - City of Waterfalls</option>
+                                        <option value="2">Deoghar - Baidyanath Temple</option>
+                                        <option value="3">Jamshedpur - Steel City</option>
+                                        <option value="4">Betla National Park</option>
+                                        <option value="5">Netarhat - Queen of Chotanagpur</option>
+                                        <option value="6">Parasnath Hill - Jain Pilgrimage</option>
+                                        <option value="7">Ghatshila - Riverside Town</option>
+                                        <option value="8">Massanjore Dam - Picnic Spot</option>
+                                        <option value="9">Hazaribagh Wildlife Sanctuary</option>
+                                        <option value="10">Tagore Hill - Ranchi</option>
+                                        <option value="11">Hundru Falls</option>
+                                        <option value="12">Jonha Falls (Gautamdhara)</option>
+                                        <option value="13">Dassam Falls</option>
+                                    </select>
+                                    <small>Hold Ctrl (or Cmd on Mac) to select multiple destinations</small>
+                                </div>
+                            </div>
+                            
+                            <div class="wizard-actions">
+                                <button class="btn btn-secondary" onclick="prevStep(1)">← Back</button>
+                                <button class="btn btn-next" onclick="nextStep(3)">Next →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Preferences -->
+                        <div class="wizard-step" id="step3">
+                            <h3>Your Travel Preferences</h3>
+                            <p>Help us customize your perfect trip</p>
+                            
+                            <div class="preferences-selection">
+                                <div class="preference-category">
+                                    <h4>Accommodation Type *</h4>
+                                    <div class="preference-options">
+                                        <label class="preference-option">
+                                            <input type="radio" name="accommodation" value="budget" required>
+                                            <span class="option-card">
+                                                <i class="fas fa-home"></i>
+                                                <span>Budget</span>
+                                                <small>Hostels, Guesthouses</small>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="radio" name="accommodation" value="midrange">
+                                            <span class="option-card">
+                                                <i class="fas fa-hotel"></i>
+                                                <span>Mid-range</span>
+                                                <small>3-Star Hotels</small>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="radio" name="accommodation" value="luxury">
+                                            <span class="option-card">
+                                                <i class="fas fa-building"></i>
+                                                <span>Luxury</span>
+                                                <small>5-Star Resorts</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="preference-category">
+                                    <h4>Travel Style (Select all that apply)</h4>
+                                    <div class="preference-options">
+                                        <label class="preference-option">
+                                            <input type="checkbox" name="travelStyle" value="adventure">
+                                            <span class="option-card">
+                                                <i class="fas fa-hiking"></i>
+                                                <span>Adventure</span>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="checkbox" name="travelStyle" value="cultural">
+                                            <span class="option-card">
+                                                <i class="fas fa-landmark"></i>
+                                                <span>Cultural</span>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="checkbox" name="travelStyle" value="relaxation">
+                                            <span class="option-card">
+                                                <i class="fas fa-spa"></i>
+                                                <span>Relaxation</span>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="checkbox" name="travelStyle" value="photography">
+                                            <span class="option-card">
+                                                <i class="fas fa-camera"></i>
+                                                <span>Photography</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="preference-category">
+                                    <h4>Transportation Preference</h4>
+                                    <div class="preference-options">
+                                        <label class="preference-option">
+                                            <input type="radio" name="transport" value="public">
+                                            <span class="option-card">
+                                                <i class="fas fa-bus"></i>
+                                                <span>Public Transport</span>
+                                                <small>Buses, Trains</small>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="radio" name="transport" value="private" checked>
+                                            <span class="option-card">
+                                                <i class="fas fa-car"></i>
+                                                <span>Private Vehicle</span>
+                                                <small>Car with Driver</small>
+                                            </span>
+                                        </label>
+                                        <label class="preference-option">
+                                            <input type="radio" name="transport" value="selfdrive">
+                                            <span class="option-card">
+                                                <i class="fas fa-road"></i>
+                                                <span>Self Drive</span>
+                                                <small>Rental Car</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="message">Special Requests or Additional Information</label>
+                                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Tell us about any special requirements, dietary restrictions, or specific interests..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="wizard-actions">
+                                <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+                                <button class="btn btn-next" onclick="nextStep(4)">Next →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Review & Book -->
+                        <div class="wizard-step" id="step4">
+                            <h3>Review Your Booking</h3>
+                            <p>Please review your information before submitting</p>
+                            
+                            <div class="booking-summary">
+                                <div class="summary-card">
+                                    <h4>Personal Information</h4>
+                                    <div class="summary-details">
+                                        <div class="summary-item">
+                                            <span>Full Name:</span>
+                                            <span id="summaryName">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Email:</span>
+                                            <span id="summaryEmail">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Phone:</span>
+                                            <span id="summaryPhone">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Country:</span>
+                                            <span id="summaryCountry">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="summary-card">
+                                    <h4>Travel Details</h4>
+                                    <div class="summary-details">
+                                        <div class="summary-item">
+                                            <span>Start Date:</span>
+                                            <span id="summaryDate">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Duration:</span>
+                                            <span id="summaryDuration">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Travelers:</span>
+                                            <span id="summaryTravelers">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Tour Type:</span>
+                                            <span id="summaryTourType">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Destinations:</span>
+                                            <span id="summaryDestinations">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="summary-card">
+                                    <h4>Preferences</h4>
+                                    <div class="summary-details">
+                                        <div class="summary-item">
+                                            <span>Accommodation:</span>
+                                            <span id="summaryAccommodation">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Travel Style:</span>
+                                            <span id="summaryTravelStyle">-</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Transportation:</span>
+                                            <span id="summaryTransport">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="summary-card">
+                                    <h4>Estimated Cost</h4>
+                                    <div class="cost-breakdown">
+                                        <div class="cost-item">
+                                            <span>Accommodation</span>
+                                            <span id="costAccommodation">₹0</span>
+                                        </div>
+                                        <div class="cost-item">
+                                            <span>Transportation</span>
+                                            <span id="costTransport">₹0</span>
+                                        </div>
+                                        <div class="cost-item">
+                                            <span>Activities</span>
+                                            <span id="costActivities">₹0</span>
+                                        </div>
+                                        <div class="cost-item">
+                                            <span>Guide Services</span>
+                                            <span id="costGuide">₹0</span>
+                                        </div>
+                                        <div class="cost-item total">
+                                            <span>Total Estimated Cost</span>
+                                            <span id="costTotal">₹0</span>
+                                        </div>
+                                    </div>
+                                    <small class="cost-note">* Final cost may vary based on actual arrangements</small>
+                                </div>
+                            </div>
+                            
+                            <div class="terms-agreement">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="agreeTerms" required>
+                                    <span>I agree to the <a href="#" target="_blank">Terms & Conditions</a> and <a href="#" target="_blank">Privacy Policy</a></span>
+                                </label>
+                            </div>
+                            
+                            <div class="wizard-actions">
+                                <button class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+                                <button type="submit" class="btn btn-primary" id="submitBooking">
+                                    <i class="fas fa-paper-plane"></i> Submit Booking Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Contact Option -->
+                <div class="quick-contact">
+                    <h3>Need Help with Your Booking?</h3>
+                    <p>Our travel experts are available to assist you</p>
+                    
+                    <div class="contact-options">
+                        <div class="contact-option">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p>+91 XXX XXX XXXX</p>
+                                <small>Available 9 AM - 6 PM</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-option">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p>bookings@jharkhandtourism.com</p>
+                                <small>Response within 24 hours</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-option">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <h4>Live Chat</h4>
+                                <p>Available on website</p>
+                                <small>Instant assistance</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-modal" onclick="closeModal('bookingModal')">&times;</span>
+            <div class="booking-confirmation">
+                <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h2>Booking Request Submitted!</h2>
+                <p>Thank you for your booking request. We have received your information and will contact you within 24 hours to confirm your trip details and discuss the final itinerary.</p>
+                
+                <div class="confirmation-details">
+                    <div class="confirmation-item">
+                        <strong>Reference Number:</strong> 
+                        <span id="bookingRef">JH2025-<span id="refNumber">0000</span></span>
+                    </div>
+                    <div class="confirmation-item">
+                        <strong>Next Steps:</strong> 
+                        <span>Our travel expert will contact you to finalize your itinerary</span>
+                    </div>
+                </div>
+                
+                <div class="confirmation-actions">
+                    <button class="btn" onclick="printConfirmation()">
+                        <i class="fas fa-print"></i> Print Confirmation
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal('bookingModal')">
+                        <i class="fas fa-home"></i> Return to Home
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Jharkhand Tourism</h3>
+                    <p>Discover the unexplored beauty and rich cultural heritage of Jharkhand. Your gateway to authentic eco-tourism experiences.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#destinations">Destinations</a></li>
+                        <li><a href="index.html#map">Interactive Map</a></li>
+                        <li><a href="index.html#culture">Local Culture</a></li>
+                        <li><a href="booking.html">Booking</a></li>
+                        <li><a href="index.html#quiz">Heritage Quiz</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Tourism Department, Jharkhand</li>
+                        <li><i class="fas fa-phone"></i> +91 XXX XXX XXXX</li>
+                        <li><i class="fas fa-envelope"></i> info@jharkhandtourism.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Jharkhand Tourism | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SOS Button -->
+    <div class="sos-button" onclick="showSOSModal()">
+        <i class="fas fa-bell"></i>
+    </div>
+
+    <!-- SOS Modal -->
+    <div class="modal" id="sosModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('sosModal')">&times;</span>
+            <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #e53935; margin-bottom: 1rem;"></i>
+            <h2>Emergency Alert Sent!</h2>
+            <p>Your SOS signal has been sent to the nearest police station and hospital. Help is on the way.</p>
+            <button class="btn" onclick="closeModal('sosModal')">Close</button>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>
