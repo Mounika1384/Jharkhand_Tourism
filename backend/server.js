@@ -7,7 +7,11 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['https://mounika1384.github.io', 'http://localhost:3000', 'http://127.0.0.1:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 

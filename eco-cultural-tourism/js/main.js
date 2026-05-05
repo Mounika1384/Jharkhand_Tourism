@@ -622,8 +622,11 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     this.reset();
 });
 
-// Initialize date picker with tomorrow's date
-document.getElementById('travelDate').min = new Date().toISOString().split('T')[0];
+    // Initialize date picker if it exists
+    const travelDateElement = document.getElementById('travelDate');
+    if (travelDateElement) {
+        travelDateElement.min = new Date().toISOString().split('T')[0];
+    }
 
 // Enhanced smooth scrolling with visual feedback
 function initEnhancedScrolling() {

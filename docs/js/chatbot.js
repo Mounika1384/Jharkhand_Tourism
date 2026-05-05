@@ -12,7 +12,7 @@ function handleChatInput(event) {
 async function sendChatMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    const CHAT_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:3000/api'
         : 'https://jharkhand-tourism-backend-h5sq.onrender.com/api';
     
@@ -25,7 +25,7 @@ async function sendChatMessage() {
     const typingId = addTypingIndicator();
     
     try {
-        const response = await fetch(`${API_URL}/chat`, {
+        const response = await fetch(`${CHAT_API_URL}/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,10 +1,10 @@
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const REVIEWS_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000/api'
     : 'https://jharkhand-tourism-backend-h5sq.onrender.com/api';
 
 async function fetchReviews(destinationId) {
     try {
-        const response = await fetch(`${API_URL}/reviews/${destinationId}`);
+        const response = await fetch(`${REVIEWS_API_URL}/reviews/${destinationId}`);
         const reviews = await response.json();
         renderReviews(reviews);
     } catch (error) {
@@ -42,7 +42,7 @@ async function submitReview(event, destinationId) {
     const reviewData = { destinationId, userName, rating: parseInt(rating), comment };
 
     try {
-        const response = await fetch(`${API_URL}/reviews`, {
+        const response = await fetch(`${REVIEWS_API_URL}/reviews`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(reviewData)
